@@ -632,6 +632,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53634772479bb124490f65d5b506dd84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TransformTranslate
+  movementSpeed: 10
+  rotationSpeed: 100
 --- !u!1 &1619456745
 GameObject:
   m_ObjectHideFlags: 0
