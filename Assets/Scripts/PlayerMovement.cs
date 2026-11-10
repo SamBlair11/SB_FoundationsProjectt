@@ -1,6 +1,8 @@
 using System.Runtime.CompilerServices;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -115,5 +117,40 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+
+    [Space(20)]
+    //[SerializeField] private TextMeshProUGUI score_txt;
+    
+
+    private int score = 0;
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "coin")
+        {
+            CollectCoins();
+            Destroy(other.gameObject);
+        }
+
+    }
+
+    
+    private void CollectCoins()
+    {
+        score++;
+        UIHandler.Instance.score_Txt.text = score.ToString();
+
+        if (score >= LevelHandler.Instance.levels[GameManager.Instance.current_Level].coins.Length)
+        {
+            UIHandler.Instance.On_Mission_Complete_Event.Invoke();
+            UIHandler.Instance.win_Lose_Msg.gameObject.SetActive(true);
+            UIHandler.Instance.win_Lose_Msg.text = "You Escaped!";
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            //UIHandler.Instance.game_Timer.StopTimer();
+        }
     }
 }
